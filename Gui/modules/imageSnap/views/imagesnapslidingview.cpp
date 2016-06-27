@@ -24,7 +24,10 @@ void ImageSnapSlidingView::createMapView(){
     view->setLayout(layout);
 
     connector = new WebPageConnector(this);
+    channel = new QWebChannel(this);
+    channel->registerObject("connector", connector);
     webView = new QWebEngineView(this);
+    webView->page()->setWebChannel(channel);
 
     layout->addWidget(webView, 0, 0, 1, 2);
     MaterialButton* button = new MaterialButton(QString("Select Image"));

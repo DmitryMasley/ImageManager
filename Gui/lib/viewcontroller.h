@@ -4,11 +4,11 @@
 #include <QObject>
 #include <QWidget>
 
-class ViewController : public QObject
+class ViewController : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ViewController(QObject *parent = 0);
+    explicit ViewController(QWidget *parent = 0);
     virtual QWidget* getView();
 signals:
 

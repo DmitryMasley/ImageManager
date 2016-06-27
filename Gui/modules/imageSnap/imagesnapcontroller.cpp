@@ -1,6 +1,6 @@
 #include "imagesnapcontroller.h"
 
-ImageSnapController::ImageSnapController(QObject *parent) : ViewController(parent)
+ImageSnapController::ImageSnapController(QWidget *parent) : ViewController(parent)
 {
 
 }

@@ -11,7 +11,7 @@ class ImageSnapController : public ViewController
 {
     Q_OBJECT
 public:
-    explicit ImageSnapController(QObject *parent = 0);
+    explicit ImageSnapController(QWidget *parent = 0);
     QWidget* getView();
 signals:
 

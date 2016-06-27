@@ -12,6 +12,7 @@
 #include "../webpageconnector.h"
 #include "lib/slidingstackedwidget.h"
 #include "lib/views/materialbutton.h"
+#include <QWebChannel>
 
 class ImageSnapSlidingView : public SlidingStackedWidget
 {
@@ -31,6 +32,7 @@ private:
     SingleImageView* mapImageView;
     SingleImageView* targetImageView;
     QImage* renderedPage=0;
+    QWebChannel* channel;
     void createMapView();
     void createImagesView();
     void createResultView();

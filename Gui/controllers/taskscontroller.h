@@ -2,16 +2,17 @@
 #define TASKSCONTROLLER_H
 
 #include <QObject>
+#include <QWidget>
 #include "views/tasksview.h"
 #include "./tasksenum.h"
 #include "lib/viewcontroller.h"
 #include "modules/imageSnap/imagesnapcontroller.h"
 
-class TasksController : public QObject
+class TasksController : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TasksController(QObject *parent = 0);
+    explicit TasksController(QWidget *parent = 0);
     ~TasksController();
     TasksView* createTasksView();
 signals:

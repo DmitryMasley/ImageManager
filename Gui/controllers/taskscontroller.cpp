@@ -1,6 +1,6 @@
 #include "taskscontroller.h"
 
-TasksController::TasksController(QObject *parent) : QObject(parent)
+TasksController::TasksController(QWidget *parent) : QWidget(parent)
 {
 
 }
