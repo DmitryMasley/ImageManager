@@ -1,5 +1,5 @@
-#ifndef IMAGESNAPVIEW_H
-#define IMAGESNAPVIEW_H
+#ifndef ImageSnapSlidingView_H
+#define ImageSnapSlidingView_H
 
 #include <QWidget>
 #include <QtWebEngineWidgets/QWebEngineView>
@@ -9,16 +9,16 @@
 //#include <QWebPage>
 #include <QPainter>
 #include "helpers/viewhelper.h"
-#include "controllers/imageSnap/webpageconnector.h"
+#include "../webpageconnector.h"
 #include "lib/slidingstackedwidget.h"
 #include "lib/views/materialbutton.h"
 
-class ImageSnapView : public SlidingStackedWidget
+class ImageSnapSlidingView : public SlidingStackedWidget
 {
     Q_OBJECT
 public:
-    explicit ImageSnapView(QWidget *parent = 0);
-    ~ImageSnapView();
+    explicit ImageSnapSlidingView(QWidget *parent = 0);
+    ~ImageSnapSlidingView();
 
 signals:
 
@@ -37,4 +37,4 @@ private:
     void renderPage();
 };
 
-#endif // IMAGESNAPVIEW_H
+#endif // ImageSnapSlidingView_H

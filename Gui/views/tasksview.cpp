@@ -52,14 +52,14 @@ void TasksView::showView(QModelIndex index){
     }
     QWidget* view;
     switch(typeName){
-    case TasksView::IMAGE_MERGING:
+    case TasksEnum::IMAGE_MERGING:
         view = new ImageMergingView(this);
         break;
-    case TasksView::IMAGE_PROPERTIES:
-        view = new ImageSnapView(this);
+    case TasksEnum::IMAGE_PROPERTIES:
+        view = new ImageSnapSlidingView(this);
         break;
-    case TasksView::IMAGE_SNAP:
-        view = new ImageSnapView(this);
+    case TasksEnum::IMAGE_SNAP:
+        view = new ImageSnapSlidingView(this);
         break;
     }
     view->setObjectName("task");
@@ -74,20 +74,20 @@ StandardModel* TasksView::getListModel(){
     model->root()->setData(0, tr("Task"),  Qt::DisplayRole);
 
     // Image Merging
-    this->addItemToModel(model, this->getImageMergingIcon(), tr("Image Merging"),  TasksView::IMAGE_MERGING);
+    this->addItemToModel(model, this->getImageMergingIcon(), tr("Image Merging"),  TasksEnum::IMAGE_MERGING);
 
     //
     // Image Properties
     QVariantMap options;
     options.insert("color" , QColor("#4A148C"));
     QIcon propertiesIcon = viewHelper::awesome->icon(fa::barcharto, options);
-    this->addItemToModel(model, propertiesIcon, tr("Image Properties"),  TasksView::IMAGE_PROPERTIES);
+    this->addItemToModel(model, propertiesIcon, tr("Image Properties"),  TasksEnum::IMAGE_PROPERTIES);
     //
     // Snap
     QVariantMap snapOptions;
     snapOptions.insert("color" , QColor("#8BC34A"));
     QIcon snapIcon = viewHelper::awesome->icon(fa::map, snapOptions);
-    this->addItemToModel(model, snapIcon, tr("Image Snap"),  TasksView::IMAGE_SNAP);
+    this->addItemToModel(model, snapIcon, tr("Image Snap"),  TasksEnum::IMAGE_SNAP);
     //
     return model;
 }

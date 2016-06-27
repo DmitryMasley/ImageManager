@@ -2,15 +2,17 @@
 #define IMAGESNAPCONTROLLER_H
 
 #include "lib/vent.h"
+#include "lib/viewcontroller.h"
+#include "modules/imageSnap/views/imagesnapslidingview.h"
 
 #include <QObject>
 
-class imageSnapController : public QObject
+class ImageSnapController : public ViewController
 {
     Q_OBJECT
 public:
-    explicit imageSnapController(QObject *parent = 0);
-
+    explicit ImageSnapController(QObject *parent = 0);
+    QWidget* getView();
 signals:
 
 public slots:

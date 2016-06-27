@@ -9,13 +9,14 @@
 #include "lib/model/standardmodel.h"
 #include "QStringListModel"
 #include "views/imageMerging/imagemergingview.h"
-#include "views/imageSnap/imagesnapview.h"
+#include "modules/imageSnap/views/imagesnapslidingview.h"
 #include <QHBoxLayout>
 #include <helpers/viewhelper.h>
 #include <lib/vent.h>
 #include <QPainter>
 #include <QRegion>
 #include <QRect>
+#include "controllers/tasksenum.h"
 class TasksView : public SlidingStackedWidget
 {
     Q_OBJECT
@@ -24,11 +25,6 @@ public:
     ~TasksView();
     QWidget* task;
     QGridLayout* layout;
-    enum TasksEnum {
-        IMAGE_MERGING = 0,
-        IMAGE_PROPERTIES = 1,
-        IMAGE_SNAP = 2
-    };
 private:
     StandardModel* getListModel();
     void initTasksList();

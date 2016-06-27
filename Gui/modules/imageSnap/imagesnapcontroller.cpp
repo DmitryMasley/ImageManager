@@ -1,6 +1,10 @@
 #include "imagesnapcontroller.h"
 
-imageSnapController::imageSnapController(QObject *parent) : QObject(parent)
+ImageSnapController::ImageSnapController(QObject *parent) : ViewController(parent)
 {
 
+}
+QWidget* ImageSnapController::getView(){
+    ImageSnapSlidingView* view = new ImageSnapSlidingView(this);
+    return view;
 }

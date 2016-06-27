@@ -11,6 +11,7 @@
 #include "views/workspace.h"
 #include "helpers/viewhelper.h"
 #include "controllers/workspacecontroller.h"
+#include "controllers/taskscontroller.h"
 #include "lib/views/materialbutton.h"
 #include "views/tasksview.h"
 
@@ -26,6 +27,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     WorkspaceController* workspaceController;
+    TasksController* tasksController;
 
 private:
     Ui::MainWindow *ui;
