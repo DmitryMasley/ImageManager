@@ -38,8 +38,12 @@ SOURCES += main.cpp\
     views/imageMerging/imagemergingprocessor.cpp \
     lib/model/matmodel.cpp \
     lib/model/matmodelitem.cpp \
-    views/imageSnap/imagesnapview.cpp \
-    controllers/imageSnap/webpageconnector.cpp \
+    modules/imageSnap/views/imagesnapslidingview.cpp \
+    modules/imageSnap/webpageconnector.cpp \
+    modules/imageSnap/imagesnapcontroller.cpp \
+    modules/imageSnap/imagesnapstore.cpp \
+    controllers/taskscontroller.cpp \
+    lib/viewcontroller.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -70,9 +74,13 @@ HEADERS  += mainwindow.h \
     views/imageMerging/imagemerginginputdata.h \
     lib/model/matmodel.h \
     lib/model/matmodelitem.h \
-    views/imageSnap/imagesnapview.h \
-    controllers/imageSnap/webpageconnector.h \
-    modules/imageSnap/imagesnapcontroller.h
+    modules/imageSnap/imagesnapcontroller.h \
+    modules/imageSnap/views/imagesnapslidingview.h \
+    modules/imageSnap/webpageconnector.h \
+    modules/imageSnap/imagesnapstore.h \
+    controllers/taskscontroller.h \
+    controllers/tasksenum.h \
+    lib/viewcontroller.h
 
 FORMS    += mainwindow.ui
 win32 {

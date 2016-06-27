@@ -1,6 +1,6 @@
-#include "imagesnapview.h"
+#include "ImageSnapSlidingView.h"
 
-ImageSnapView::ImageSnapView(QWidget *parent) : SlidingStackedWidget(parent)
+ImageSnapSlidingView::ImageSnapSlidingView(QWidget *parent) : SlidingStackedWidget(parent)
 {
 //    m_animationtype = QEasingCurve::OutExpo;
     setAnimation(QEasingCurve::OutExpo);
@@ -10,12 +10,12 @@ ImageSnapView::ImageSnapView(QWidget *parent) : SlidingStackedWidget(parent)
     this->createResultView();
 
 }
-ImageSnapView::~ImageSnapView(){
+ImageSnapSlidingView::~ImageSnapSlidingView(){
     if(renderedPage != 0){
         delete renderedPage;
     }
 }
-void ImageSnapView::createMapView(){
+void ImageSnapSlidingView::createMapView(){
 
     QWidget* view = new QWidget(this);
     this->addWidget(view);
@@ -37,12 +37,12 @@ void ImageSnapView::createMapView(){
 
     webView->page()->mainFrame()->addToJavaScriptWindowObject("connector", connector);
 }
-void ImageSnapView::goToImgeView(){
+void ImageSnapSlidingView::goToImgeView(){
     this->slideInNext();
     this->renderPage();
 }
 
-void ImageSnapView::createImagesView(){
+void ImageSnapSlidingView::createImagesView(){
     QWidget* view = new QWidget(this);
     this->addWidget(view);
 
@@ -69,10 +69,10 @@ void ImageSnapView::createImagesView(){
     QObject::connect(button, SIGNAL(clicked(bool)), this, SLOT(slideInPrev()));
 }
 
-void ImageSnapView::mainFrame_javaScriptWindowObjectCleared() {
+void ImageSnapSlidingView::mainFrame_javaScriptWindowObjectCleared() {
     webView->page()->mainFrame()->addToJavaScriptWindowObject("connector", connector);
 }
-void ImageSnapView::renderPage(){
+void ImageSnapSlidingView::renderPage(){
     QWebFrame* frame = webView->page()->mainFrame();
     if(renderedPage != 0){
         delete renderedPage;
@@ -83,6 +83,6 @@ void ImageSnapView::renderPage(){
     painter.end();
     mapImageView->showImage(renderedPage);
 }
-void ImageSnapView::createResultView(){
+void ImageSnapSlidingView::createResultView(){
 
 }

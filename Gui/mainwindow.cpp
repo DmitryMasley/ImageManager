@@ -45,13 +45,12 @@ MainWindow::MainWindow(QWidget *parent) :
     addDockWidget(Qt::LeftDockWidgetArea, dock);
     dock->setWidget(dockWidgetContents);
 
-    TasksView* tasks = new TasksView(this);
+    tasksController = new TasksController();
+    TasksView* tasks = tasksController->createTasksView();
     QHBoxLayout* layout = new QHBoxLayout();
     ui->centralWidget->setLayout(layout);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(tasks);
-
-
 
 }
 MainWindow::~MainWindow()
