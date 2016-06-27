@@ -68,6 +68,7 @@ void ImageSnapSlidingView::createImagesView(){
 
     QObject::connect(button, SIGNAL(clicked(bool)), this, SLOT(slideInPrev()));
 }
+void ImageSnapSlidingView::mainFrame_javaScriptWindowObjectCleared() {
 //    webView->page()->mainFrame()->addToJavaScriptWindowObject("connector", connector);
 }
 void ImageSnapSlidingView::renderPage(){
