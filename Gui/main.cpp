@@ -2,7 +2,7 @@
 #include <QApplication>
 #include <QtAwesome.h>
 #include "helpers/viewhelper.h"
-#include <QWebSettings>
+//#include <QWebSettings>
 
 int main(int argc, char *argv[])
 {
@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     int id = database.addApplicationFont(":/resource/fonts/FontAwesome.otf");
     viewHelper::setQtAwesome(new QtAwesome(QApplication::instance()));
     viewHelper::awesome->initFontAwesome();
-    QWebSettings::globalSettings()->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
+    //QWebSettings::globalSettings()->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
     MainWindow w;
 
     w.show();

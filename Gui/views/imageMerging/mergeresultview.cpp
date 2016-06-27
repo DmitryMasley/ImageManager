@@ -4,12 +4,6 @@ ImageMergingProcessor* MergeResultView::runExecutor(ImageMergingProcessor* p){
     p->run();
     return p;
 }
-cv::Mat mergeGrayImages(ImageMergingInputData input){
-
-}
-cv::Mat mergeMultichannelImage(ImageMergingInputData input){
-
-}
 MergeResultView::MergeResultView(QWidget *parent) : QDialog(parent)
 {
     QGridLayout* layout = new QGridLayout(this);
