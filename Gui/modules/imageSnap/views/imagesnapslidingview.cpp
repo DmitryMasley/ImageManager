@@ -2,7 +2,6 @@
 
 ImageSnapSlidingView::ImageSnapSlidingView(QWidget *parent) : SlidingStackedWidget(parent)
 {
-//    m_animationtype = QEasingCurve::OutExpo;
     setAnimation(QEasingCurve::OutExpo);
     setVerticalMode(true);
     this->createMapView();
@@ -37,8 +36,6 @@ void ImageSnapSlidingView::createMapView(){
 
     webView->load(QUrl("qrc:/views/imageSnap/index.html"));
     QObject::connect(button, SIGNAL(clicked(bool)), this, SLOT(goToImgeView()));
-
-//    webView->page()->mainFrame()->addToJavaScriptWindowObject("connector", connector);
 }
 void ImageSnapSlidingView::goToImgeView(){
     this->slideInNext();
@@ -70,9 +67,6 @@ void ImageSnapSlidingView::createImagesView(){
     nextButton->setIcon(viewHelper::awesome->icon(fa::arrowdown));
 
     QObject::connect(button, SIGNAL(clicked(bool)), this, SLOT(slideInPrev()));
-}
-void ImageSnapSlidingView::mainFrame_javaScriptWindowObjectCleared() {
-//    webView->page()->mainFrame()->addToJavaScriptWindowObject("connector", connector);
 }
 void ImageSnapSlidingView::renderPage(){
     if(renderedPage != 0){

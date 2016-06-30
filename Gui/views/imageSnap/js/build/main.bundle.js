@@ -463,14 +463,14 @@
 	    if (promise._state !== lib$es6$promise$$internal$$PENDING) {
 	      // noop
 	    } else if (hasCallback && succeeded) {
-	      lib$es6$promise$$internal$$resolve(promise, value);
-	    } else if (failed) {
-	      lib$es6$promise$$internal$$reject(promise, error);
-	    } else if (settled === lib$es6$promise$$internal$$FULFILLED) {
-	      lib$es6$promise$$internal$$fulfill(promise, value);
-	    } else if (settled === lib$es6$promise$$internal$$REJECTED) {
-	      lib$es6$promise$$internal$$reject(promise, value);
-	    }
+	        lib$es6$promise$$internal$$resolve(promise, value);
+	      } else if (failed) {
+	        lib$es6$promise$$internal$$reject(promise, error);
+	      } else if (settled === lib$es6$promise$$internal$$FULFILLED) {
+	        lib$es6$promise$$internal$$fulfill(promise, value);
+	      } else if (settled === lib$es6$promise$$internal$$REJECTED) {
+	        lib$es6$promise$$internal$$reject(promise, value);
+	      }
 	  }
 	
 	  function lib$es6$promise$$internal$$initializePromise(promise, resolver) {
@@ -981,31 +981,6 @@
 	// shim for using process in browser
 	
 	var process = module.exports = {};
-	
-	// cached from whatever global is present so that test runners that stub it
-	// don't break things.  But we need to wrap it in a try catch in case it is
-	// wrapped in strict mode code which doesn't define any globals.  It's inside a
-	// function because try/catches deoptimize in certain engines.
-	
-	var cachedSetTimeout;
-	var cachedClearTimeout;
-	
-	(function () {
-	    try {
-	        cachedSetTimeout = setTimeout;
-	    } catch (e) {
-	        cachedSetTimeout = function cachedSetTimeout() {
-	            throw new Error('setTimeout is not defined');
-	        };
-	    }
-	    try {
-	        cachedClearTimeout = clearTimeout;
-	    } catch (e) {
-	        cachedClearTimeout = function cachedClearTimeout() {
-	            throw new Error('clearTimeout is not defined');
-	        };
-	    }
-	})();
 	var queue = [];
 	var draining = false;
 	var currentQueue;
@@ -1030,7 +1005,7 @@
 	    if (draining) {
 	        return;
 	    }
-	    var timeout = cachedSetTimeout(cleanUpNextTick);
+	    var timeout = setTimeout(cleanUpNextTick);
 	    draining = true;
 	
 	    var len = queue.length;
@@ -1047,7 +1022,7 @@
 	    }
 	    currentQueue = null;
 	    draining = false;
-	    cachedClearTimeout(timeout);
+	    clearTimeout(timeout);
 	}
 	
 	process.nextTick = function (fun) {
@@ -1059,7 +1034,7 @@
 	    }
 	    queue.push(new Item(fun, args));
 	    if (queue.length === 1 && !draining) {
-	        cachedSetTimeout(drainQueue, 0);
+	        setTimeout(drainQueue, 0);
 	    }
 	};
 	
@@ -1145,32 +1120,33 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	console.log("Fetch google maps");
-	new WebChannel(qt.webChannelTransport, function (channel) {
-		var connector = channel.objects.connector;
-		(0, _loadGoogleMapsApi2.default)({ key: "AIzaSyAgkc90jv6IeqH3BD-VXCO3YeNRZifXjD4" }).then(function (googleMaps) {
-			console.log("Create Map");
-			var mapDiv = document.getElementById('map');
-			var map = new googleMaps.Map(mapDiv, {
-				center: { lat: 44.540, lng: -78.546 },
-				zoom: 8
-			});
-			map.addListener("idle", function () {
-				console.log("Map loaded");
-				setTimeout(function () {
-					if (window.connector) {
-						connector.mapInitialized();
-					}
-				}, 1000);
-			});
-			if (connector) {
-				connector.setCenterCoordinates.connect(function (lat, lng) {
-					console.log("setCenterCoordinates: " + l + ", " + h);
-					map.setCenter(lat, lng);
-				});
-			}
-		}).catch(function (err) {
-			console.error(err);
-		});
+	new QWebChannel(qt.webChannelTransport, function (channel) {
+	    debugger;
+	    window.connector = channel.objects.connector;
+	    (0, _loadGoogleMapsApi2.default)({ key: "AIzaSyAgkc90jv6IeqH3BD-VXCO3YeNRZifXjD4" }).then(function (googleMaps) {
+	        console.log("Create Map");
+	        var mapDiv = document.getElementById('map');
+	        var map = new googleMaps.Map(mapDiv, {
+	            center: { lat: 44.540, lng: -78.546 },
+	            zoom: 8
+	        });
+	        map.addListener("idle", function () {
+	            console.log("Map loaded");
+	            setTimeout(function () {
+	                if (window.connector) {
+	                    connector.mapInitialized();
+	                }
+	            }, 5000);
+	        });
+	        if (connector) {
+	            connector.setCenterCoordinates.connect(function (lat, lng) {
+	                console.log("setCenterCoordinates: " + l + ", " + h);
+	                map.setCenter(lat, lng);
+	            });
+	        }
+	    }).catch(function (err) {
+	        console.error(err);
+	    });
 	});
 
 /***/ },

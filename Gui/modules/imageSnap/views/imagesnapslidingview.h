@@ -5,8 +5,8 @@
 #include <QtWebEngineWidgets/QWebEngineView>
 #include "lib/views/singleimageview.h"
 #include <QGridLayout>
-//#include <QWebFrame>
-//#include <QWebPage>
+#include <QtWebEngineWidgets/QWebEnginePage>
+#include <QtWebEngineCore>
 #include <QPainter>
 #include "helpers/viewhelper.h"
 #include "../webpageconnector.h"
@@ -24,7 +24,6 @@ public:
 signals:
 
 public slots:
-    void mainFrame_javaScriptWindowObjectCleared();
     void goToImgeView();
 private:
     WebPageConnector* connector;

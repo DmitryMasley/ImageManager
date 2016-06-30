@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets network qml quick quickwidgets concurrent webenginecore
+QT       += core gui widgets network qml quick quickwidgets concurrent webenginecore webengine webenginewidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
