@@ -786,3 +786,6 @@ cv::Mat ImageHelper::loadFromQrc(QString qrc, int flag)
 
     return m;
 }
+cv::Mat ImageHelper::convertToMat(QImage *image){
+    return cv::Mat(image->height(), image->width(), CV_8UC3, image->bits(), image->bytesPerLine()).clone();
+}

@@ -45,6 +45,7 @@ class ImageHelper
 //	static System::String^ MarshalString ( std::string& os );
     static QRresult mgs_qr(cv::Mat &A);
     static QImage* convertToQImage(cv::Mat &matrix);
+    static cv::Mat convertToMat(QImage* image);
     static std::vector<QImage*> splitToQImage(cv::Mat matrix);
     static cv::Mat getChannel(Channels ch, cv::Mat & matrix);
     static cv::Mat FFT(cv::Mat image);

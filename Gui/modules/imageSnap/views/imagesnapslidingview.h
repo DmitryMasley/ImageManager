@@ -25,6 +25,7 @@ signals:
 
 public slots:
     void goToImgeView();
+    void goToResultView();
 private:
     WebPageConnector* connector;
     QWebEngineView* webView;

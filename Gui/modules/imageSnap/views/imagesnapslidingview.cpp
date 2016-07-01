@@ -41,6 +41,11 @@ void ImageSnapSlidingView::goToImgeView(){
     this->slideInNext();
     this->renderPage();
 }
+void ImageSnapSlidingView::goToResultView(){
+    this->slideInNext();
+    cv::Mat targetImage = targetImageView->getCVImage();
+    cv::Mat map = ImageHelper::convertToMat(renderedPage);
+}
 
 void ImageSnapSlidingView::createImagesView(){
     QWidget* view = new QWidget(this);
@@ -67,6 +72,7 @@ void ImageSnapSlidingView::createImagesView(){
     nextButton->setIcon(viewHelper::awesome->icon(fa::arrowdown));
 
     QObject::connect(button, SIGNAL(clicked(bool)), this, SLOT(slideInPrev()));
+    QObject::connect(nextButton, SIGNAL(clicked(bool)), this, SLOT(goToResultView()));
 }
 void ImageSnapSlidingView::renderPage(){
     if(renderedPage != 0){
