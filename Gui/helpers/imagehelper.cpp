@@ -65,19 +65,20 @@ using namespace std;
         //Mat resized;
         //cv::resize(matrix, resized, Size(width, height), 0, 0);
         channelsNumber = matrix.channels();
+        cv::Mat newMatrix = matrix.clone();
         switch(channelsNumber)
         {
         case 1:
             //resized = matrix;
-            img = new QImage((uchar*)matrix.data, matrix.cols, matrix.rows, matrix.step, QImage::Format_Indexed8);
+            img = new QImage((uchar*)newMatrix.data, matrix.cols, matrix.rows, matrix.step, QImage::Format_Indexed8);
             break;
         case 3:
 //            cvtColor(matrix, matrix, CV_BGR2RGB);
-            img = new QImage((uchar*)matrix.data, matrix.cols, matrix.rows, matrix.step, QImage::Format_RGB888);
+            img = new QImage((uchar*)newMatrix.data, matrix.cols, matrix.rows, matrix.step, QImage::Format_RGB888);
             break;
         case 4:
 //            cvtColor(matrix, matrix, CV_BGRA2RGBA);
-            img = new QImage((uchar*)matrix.data, matrix.cols, matrix.rows, matrix.step, QImage::Format_ARGB32);
+            img = new QImage((uchar*)newMatrix.data, matrix.cols, matrix.rows, matrix.step, QImage::Format_ARGB32);
             break;
         }
         return img;
@@ -787,5 +788,31 @@ cv::Mat ImageHelper::loadFromQrc(QString qrc, int flag)
     return m;
 }
 cv::Mat ImageHelper::convertToMat(QImage *image){
-    return cv::Mat(image->height(), image->width(), CV_8UC3, image->bits(), image->bytesPerLine()).clone();
+    cv::Mat tmp(image->height(), image->width(), CV_8UC3, (uchar*)image->bits(), image->bytesPerLine());
+    cv::Mat result;
+    cv::cvtColor(tmp, result,CV_BGR2RGB);
+    return result;
+}
+ImageFeatures ImageHelper::getImageFeatures(cv::Mat image){
+      double minHessian = 10000;
+      cv::Ptr<cv::xfeatures2d::SURF> detector = cv::xfeatures2d::SURF::create(minHessian);
+      std::vector<cv::KeyPoint> keypoints;
+      cv::Mat descriptors;
+      detector->detectAndCompute(image, cv::Mat(), keypoints, descriptors );
+      ImageFeatures result = {
+          keypoints,
+          descriptors
+      };
+      return result;
+}
+std::vector< cv::DMatch > ImageHelper::getDescriptorsMatches(cv::Mat descriptors1, cv::Mat descriptors2){
+    cv::BFMatcher matcher(cv::NORM_L2);
+    std::vector< cv::DMatch > matches;
+    matcher.match( descriptors1, descriptors2, matches);
+    return matches;
+}
+cv::Mat ImageHelper::getMatchesImage(cv::Mat image1, std::vector<cv::KeyPoint> keypoints1, cv::Mat image2, std::vector<cv::KeyPoint> keypoints2, std::vector<cv::DMatch> matches){
+    cv::Mat img_matches;
+    drawMatches(image1, keypoints1, image2, keypoints2, matches, img_matches);
+    return img_matches;
 }

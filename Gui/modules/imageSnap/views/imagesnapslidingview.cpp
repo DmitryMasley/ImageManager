@@ -45,6 +45,12 @@ void ImageSnapSlidingView::goToResultView(){
     this->slideInNext();
     cv::Mat targetImage = targetImageView->getCVImage();
     cv::Mat map = ImageHelper::convertToMat(renderedPage);
+    cv::imshow("Map", map);
+    ImageFeatures targetImageFeatures = ImageHelper::getImageFeatures(targetImage);
+    ImageFeatures mapFeatures = ImageHelper::getImageFeatures(map);
+    std::vector< cv::DMatch > matches = ImageHelper::getDescriptorsMatches(targetImageFeatures.descriptors, mapFeatures.descriptors);
+    cv::Mat result = ImageHelper::getMatchesImage(targetImage, targetImageFeatures.keypoints, map, mapFeatures.keypoints, matches);
+    resultView->showImage(result);
 }
 
 void ImageSnapSlidingView::createImagesView(){
@@ -85,5 +91,19 @@ void ImageSnapSlidingView::renderPage(){
     mapImageView->showImage(renderedPage);
 }
 void ImageSnapSlidingView::createResultView(){
+    QWidget* view = new QWidget(this);
+    this->addWidget(view);
 
+    QGridLayout* layout = new QGridLayout(this);
+    view->setLayout(layout);
+
+    MaterialButton* button = new MaterialButton(QString("Back to Map"));
+    layout->addWidget(button, 0, 1, 1, 1, Qt::AlignRight);
+    button->setSizePolicy(QSizePolicy());
+    button->setIcon(viewHelper::awesome->icon(fa::arrowup));
+
+    resultView = new SingleImageView(this);
+    layout->addWidget(resultView, 1, 0, 1, 2);
+
+    QObject::connect(button, SIGNAL(clicked(bool)), this, SLOT(slideInPrev()));
 }

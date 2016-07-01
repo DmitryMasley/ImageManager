@@ -2,12 +2,20 @@
 #define ALLCHANNEL -1
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/cuda.hpp>
+#include <opencv2/features2d.hpp>
+#include <opencv2/xfeatures2d.hpp>
 #include <QString>
 #include <QImage>
 #include <QIcon>
 #include <QPixmap>
 #include <QFile>
 using namespace std;
+
+struct ImageFeatures
+{
+    std::vector<cv::KeyPoint> keypoints;
+    cv::Mat descriptors;
+};
 
 struct QRresult
 {
@@ -118,7 +126,9 @@ class ImageHelper
     static double snr(cv::Mat img1, cv::Mat img2);
     static double psnr(cv::Mat img1, cv::Mat img2);
     static cv::Mat loadFromQrc(QString qrc, int flag = cv::IMREAD_COLOR);
-
+    static ImageFeatures getImageFeatures(cv::Mat image);
+    static std::vector< cv::DMatch > getDescriptorsMatches(cv::Mat descriptors1, cv::Mat descriptors2);
+    static cv::Mat getMatchesImage(cv::Mat image1, std::vector<cv::KeyPoint> keypoints1, cv::Mat image2, std::vector<cv::KeyPoint> keypoints2, std::vector< cv::DMatch > matches);
 
 
 //double calcDSSIM(cv::Mat& src1, cv::Mat& src2, int channel = 0, int method=CV_BGR2YUV, cv::Mat& mask=cv::Mat(),const double K1 = 0.01, const double K2 = 0.03,	const int L = 255, const int downsamplewidth=256, const int gaussian_window=11, const double gaussian_sigma=1.5, cv::Mat& ssim_map=cv::Mat());

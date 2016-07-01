@@ -31,6 +31,7 @@ private:
     QWebEngineView* webView;
     SingleImageView* mapImageView;
     SingleImageView* targetImageView;
+    SingleImageView* resultView;
     QImage* renderedPage=0;
     QWebChannel* channel;
     void createMapView();
