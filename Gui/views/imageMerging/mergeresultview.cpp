@@ -34,7 +34,7 @@ MergeResultView::~MergeResultView()
 {
 
 }
-void MergeResultView::run(StandardImageModel *model, Mat panImage){
+void MergeResultView::run(StandardImageModel *model, cv::Mat panImage){
     QMap<QString, cv::Mat> grayImages;
     QMap<QString, cv::Mat> multichannelImages;
     QList<ImageMergingProcessor*> executorsList;
@@ -128,7 +128,7 @@ cv::Mat MergeResultView::combineSourceMultichannerlImageIntoMatrix(int cols, int
     temp.release();
     return inputMatrix;
 }
-void MergeResultView::gotMergeResult(QMap<QString, Mat> resultData){
+void MergeResultView::gotMergeResult(QMap<QString, cv::Mat> resultData){
     QMap<QString, cv::Mat>::const_iterator i = resultData.constBegin();
     while(i != resultData.constEnd()){
         StandardImageItem* item = new StandardImageItem(i.value(), i.key());
@@ -144,7 +144,7 @@ void MergeResultView::showImage(QModelIndex index){
     cv::namedWindow(ImageHelper::convertToStdString(name), CV_WINDOW_NORMAL | CV_WINDOW_KEEPRATIO | CV_GUI_EXPANDED);
     cv::imshow(ImageHelper::convertToStdString(name), ImageHelper::RGB2BGR(image));
 }
-void MergeResultView::showImageInTable(Mat image){
+void MergeResultView::showImageInTable(cv::Mat image){
 //    MatModel* model = new MatModel(image, image.type(), this);
 //    table1->setModel(model);
 }

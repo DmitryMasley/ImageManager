@@ -84,8 +84,9 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 win32 {
-    INCLUDEPATH += "C:/opencv/build/include"
-    LIBS += C:/opencv/build/x64/vc14/lib/opencv_world310d.lib
+    INCLUDEPATH += "C:/opencv/build2/install/include"
+#    LIBS += C:/opencv/build2/x64/vc14/lib/opencv_world310d.lib
+LIBS += "C:\opencv\build2\install\x64\vc14\bin"
 #    LIBS += "C:/opencv/build-current/lib/libopencv_calib3d300.dll.a"
 #    LIBS += "C:/opencv/build-current/lib/libopencv_core300.dll.a"
 #    LIBS += "C:/opencv/build-current/lib/libopencv_features2d300.dll.a"

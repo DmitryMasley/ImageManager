@@ -4,7 +4,7 @@ StandardImageItem::StandardImageItem(QObject *parent) :
 {
 }
 
-StandardImageItem::StandardImageItem(Mat image, QString name, QString fileName, bool isRoot, QObject *parent) :
+StandardImageItem::StandardImageItem(cv::Mat image, QString name, QString fileName, bool isRoot, QObject *parent) :
     AbstractItem(parent)
 {
     setRoot(isRoot);
@@ -25,7 +25,7 @@ StandardImageItem::StandardImageItem(const QMap<int, QMap<int, QVariant> > &data
     headers << QString("Item Title");
     setHeaders(headers);
     setItemData(data);
-    Mat image = getCVImage();
+    cv::Mat image = getCVImage();
     delete _tempimage;
     _tempimage = ImageHelper::convertToQImage(image);
 }
@@ -35,7 +35,7 @@ StandardImageItem::StandardImageItem(StandardImageItem &item):AbstractItem(item)
     headers << QString("Item Title");
     setHeaders(headers);
     setItemData(item.getData());
-    Mat image = getCVImage();
+    cv::Mat image = getCVImage();
     delete _tempimage;
     _tempimage = ImageHelper::convertToQImage(image);
 }
@@ -129,7 +129,7 @@ void StandardImageItem::onChildrenChanged()
 bool StandardImageItem::isValid()
 {
     QVariant value = data(1, 0);
-    Mat image = value.value<Mat>();
+    cv::Mat image = value.value<cv::Mat>();
     return value.isValid() && image.rows && image.cols;
 }
 bool StandardImageItem::canHaveChildren()
@@ -163,7 +163,7 @@ QString StandardImageItem::getFileName(){
      return this->data(1, Qt::DisplayRole).toString();
 }
 
-void StandardImageItem::initImageData(Mat image, QString name, QString fileName)
+void StandardImageItem::initImageData(cv::Mat image, QString name, QString fileName)
 {
     QIcon icon;
     if(image.rows && image.cols)
@@ -199,7 +199,7 @@ void StandardImageItem::initImageData(Mat image, QString name, QString fileName)
 void StandardImageItem::initImageData(QString name, QString fileName)
 {
     QIcon icon;
-    Mat image;
+    cv::Mat image;
     icon.addFile(QStringLiteral(":/resources/images/icons.png"), QSize(), QIcon::Normal, QIcon::Off);
     initImageData(image, name, fileName);
 }

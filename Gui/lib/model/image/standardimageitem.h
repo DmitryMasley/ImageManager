@@ -14,21 +14,20 @@
 #include <QSize>
 #include "lib/metatypes.h"
 #include <QAction>
-using namespace cv;
 class StandardImageItem : public AbstractItem
 {
     Q_OBJECT
 public:
     Q_INVOKABLE explicit StandardImageItem(QObject *parent = 0);
-    Q_INVOKABLE explicit StandardImageItem(Mat image, QString name, QString fileName=QString(), bool isRoot = false, QObject *parent = 0);
+    Q_INVOKABLE explicit StandardImageItem(cv::Mat image, QString name, QString fileName=QString(), bool isRoot = false, QObject *parent = 0);
     Q_INVOKABLE explicit StandardImageItem(QString name, QString fileName=QString(), bool isRoot = false, QObject *parent = 0);
     Q_INVOKABLE explicit StandardImageItem(const QMap<int, QMap<int, QVariant> > &data, bool isRoot = false, QObject *parent = 0);
     Q_INVOKABLE explicit StandardImageItem(StandardImageItem& item);
     Q_PROPERTY(bool _isMultiChannel READ isMultichannel WRITE setIsMultichannel)
 
     ~StandardImageItem();
-    Mat getCVImage();
-    void setCVImage(Mat image);
+    cv::Mat getCVImage();
+    void setCVImage(cv::Mat image);
     void clearImage();
     QImage* getQImage();
     QString getName();
@@ -36,7 +35,7 @@ public:
     bool isValid();
     bool canHaveChildren();
     StandardImageItem* findImage(QString fileName);
-    void initImageData(Mat image, QString name, QString fileName=QString());
+    void initImageData(cv::Mat image, QString name, QString fileName=QString());
     void initImageData(QString name, QString fileName=QString());
     int getChannel();
     bool isMultichannel();

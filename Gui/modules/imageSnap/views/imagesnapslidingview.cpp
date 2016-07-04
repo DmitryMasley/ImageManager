@@ -41,6 +41,7 @@ void ImageSnapSlidingView::goToImgeView(){
     this->slideInNext();
     this->renderPage();
 }
+
 void ImageSnapSlidingView::goToResultView(){
     this->slideInNext();
     cv::Mat targetImage = targetImageView->getCVImage();
