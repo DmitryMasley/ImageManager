@@ -126,7 +126,8 @@ class ImageHelper
     static double snr(cv::Mat img1, cv::Mat img2);
     static double psnr(cv::Mat img1, cv::Mat img2);
     static cv::Mat loadFromQrc(QString qrc, int flag = cv::IMREAD_COLOR);
-    static ImageFeatures getImageFeatures(cv::Mat image);
+    static ImageFeatures getSURFFeatures(cv::Mat image);
+    static ImageFeatures getSIFTFeatures(cv::Mat image);
     static std::vector< cv::DMatch > getDescriptorsMatches(cv::Mat descriptors1, cv::Mat descriptors2);
     static cv::Mat getMatchesImage(cv::Mat image1, std::vector<cv::KeyPoint> keypoints1, cv::Mat image2, std::vector<cv::KeyPoint> keypoints2, std::vector< cv::DMatch > matches);
 

@@ -788,13 +788,28 @@ cv::Mat ImageHelper::loadFromQrc(QString qrc, int flag)
     return m;
 }
 cv::Mat ImageHelper::convertToMat(QImage *image){
-    cv::Mat tmp(image->height(), image->width(), CV_8UC3, (uchar*)image->bits(), image->bytesPerLine());
-    cv::Mat result;
-    cv::cvtColor(tmp, result,CV_BGR2RGB);
-    return result;
+    cv::Mat cvImage;
+    cvImage = cv::Mat(image->height(),
+                    image->width(),
+                    CV_8UC3,
+                   (uchar*)image->bits(),
+                    image->bytesPerLine());
+    return cvImage.clone();
 }
-ImageFeatures ImageHelper::getImageFeatures(cv::Mat image){
-      double minHessian = 10000;
+ImageFeatures ImageHelper::getSIFTFeatures(cv::Mat image){
+      double minHessian = 200;
+      cv::Ptr<cv::xfeatures2d::SIFT> detector = cv::xfeatures2d::SIFT::create(minHessian);
+      std::vector<cv::KeyPoint> keypoints;
+      cv::Mat descriptors;
+      detector->detectAndCompute(image, cv::Mat(), keypoints, descriptors );
+      ImageFeatures result = {
+          keypoints,
+          descriptors
+      };
+      return result;
+}
+ImageFeatures ImageHelper::getSURFFeatures(cv::Mat image){
+      double minHessian = 300;
       cv::Ptr<cv::xfeatures2d::SURF> detector = cv::xfeatures2d::SURF::create(minHessian);
       std::vector<cv::KeyPoint> keypoints;
       cv::Mat descriptors;

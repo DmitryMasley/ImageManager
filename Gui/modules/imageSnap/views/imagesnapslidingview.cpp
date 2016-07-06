@@ -46,9 +46,8 @@ void ImageSnapSlidingView::goToResultView(){
     this->slideInNext();
     cv::Mat targetImage = targetImageView->getCVImage();
     cv::Mat map = ImageHelper::convertToMat(renderedPage);
-    cv::imshow("Map", map);
-    ImageFeatures targetImageFeatures = ImageHelper::getImageFeatures(targetImage);
-    ImageFeatures mapFeatures = ImageHelper::getImageFeatures(map);
+    ImageFeatures targetImageFeatures = ImageHelper::getSIFTFeatures(targetImage);
+    ImageFeatures mapFeatures = ImageHelper::getSIFTFeatures(map);
     std::vector< cv::DMatch > matches = ImageHelper::getDescriptorsMatches(targetImageFeatures.descriptors, mapFeatures.descriptors);
     cv::Mat result = ImageHelper::getMatchesImage(targetImage, targetImageFeatures.keypoints, map, mapFeatures.keypoints, matches);
     resultView->showImage(result);
@@ -89,6 +88,8 @@ void ImageSnapSlidingView::renderPage(){
     QPainter painter(renderedPage);
     webView->page()->view()->render(&painter);
     painter.end();
+    QImage convertedImage = renderedPage->convertToFormat(QImage::Format_RGB888);
+    renderedPage = new QImage(convertedImage);
     mapImageView->showImage(renderedPage);
 }
 void ImageSnapSlidingView::createResultView(){
