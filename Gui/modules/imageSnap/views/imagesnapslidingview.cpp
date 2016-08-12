@@ -1,4 +1,4 @@
-#include "ImageSnapSlidingView.h"
+#include "imagesnapslidingview.h"
 
 ImageSnapSlidingView::ImageSnapSlidingView(QWidget *parent) : SlidingStackedWidget(parent)
 {

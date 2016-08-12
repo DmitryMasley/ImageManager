@@ -65,7 +65,8 @@ using namespace std;
         //Mat resized;
         //cv::resize(matrix, resized, Size(width, height), 0, 0);
         channelsNumber = matrix.channels();
-        cv::Mat newMatrix = matrix.clone();
+//        cv::Mat newMatrix = matrix.clone();
+        cv::Mat newMatrix = matrix;
         switch(channelsNumber)
         {
         case 1:

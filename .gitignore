@@ -17,3 +17,18 @@ Gui/views/imageSnap/.idea/workspace.xml
 Gui/views/imageSnap/.idea/workspace.xml
 
 *.user
+
+Gui/debug/
+
+.vscode
+
+Gui/release/
+
+Gui/x64
+
+/ImageManager.pro.user
+
+*.user
+ImageManager.VC.db
+
+Gui/Gui.vcxproj.filters

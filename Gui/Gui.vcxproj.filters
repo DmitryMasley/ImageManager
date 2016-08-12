@@ -522,6 +522,7 @@
     </None>
     <None Include="views\imageSnap\index.html" />
     <None Include="views\imageSnap\index.html" />
+    <None Include="views\imageSnap\index.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="views\imageSnap\index.html">
