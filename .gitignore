@@ -32,3 +32,10 @@ Gui/x64
 ImageManager.VC.db
 
 Gui/Gui.vcxproj.filters
+*.user
+.idea/
+Gui/Gui.app/Contents/MacOS/
+Gui/controllers/imageSnap/
+.vs/ImageManager
+ImageManager.sln
+ImageManager.pro.user

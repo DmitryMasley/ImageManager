@@ -6,6 +6,7 @@ ImageSnapSlidingView::ImageSnapSlidingView(QWidget *parent) : SlidingStackedWidg
     setVerticalMode(true);
     this->createMapView();
     this->createImagesView();
+    this->createSettingsView();
     this->createResultView();
 
 }
@@ -41,11 +42,22 @@ void ImageSnapSlidingView::goToImgeView(){
     this->slideInNext();
     this->renderPage();
 }
+void ImageSnapSlidingView::goToSettingsView(){
+    this->slideInNext();
+}
 
 void ImageSnapSlidingView::goToResultView(){
     this->slideInNext();
     cv::Mat targetImage = targetImageView->getCVImage();
-    cv::Mat map = ImageHelper::convertToMat(renderedPage);
+    cv::Mat mapImage = mapImageView->getCVImage();
+    cv::Mat map;
+    // if we have image droped to image view use it
+    if(mapImage.cols && mapImage.rows){
+        map = mapImage;
+    } else {
+        // use map otherwise
+        map = ImageHelper::convertToMat(renderedPage);
+    }
     ImageFeatures targetImageFeatures = ImageHelper::getSIFTFeatures(targetImage);
     ImageFeatures mapFeatures = ImageHelper::getSIFTFeatures(map);
     std::vector< cv::DMatch > matches = ImageHelper::getDescriptorsMatches(targetImageFeatures.descriptors, mapFeatures.descriptors);
@@ -78,7 +90,7 @@ void ImageSnapSlidingView::createImagesView(){
     nextButton->setIcon(viewHelper::awesome->icon(fa::arrowdown));
 
     QObject::connect(button, SIGNAL(clicked(bool)), this, SLOT(slideInPrev()));
-    QObject::connect(nextButton, SIGNAL(clicked(bool)), this, SLOT(goToResultView()));
+    QObject::connect(nextButton, SIGNAL(clicked(bool)), this, SLOT(goToSettingsView()));
 }
 void ImageSnapSlidingView::renderPage(){
     if(renderedPage != 0){
@@ -99,7 +111,7 @@ void ImageSnapSlidingView::createResultView(){
     QGridLayout* layout = new QGridLayout(this);
     view->setLayout(layout);
 
-    MaterialButton* button = new MaterialButton(QString("Back to Map"));
+    MaterialButton* button = new MaterialButton(QString("Back to Settings"));
     layout->addWidget(button, 0, 1, 1, 1, Qt::AlignRight);
     button->setSizePolicy(QSizePolicy());
     button->setIcon(viewHelper::awesome->icon(fa::arrowup));
@@ -107,5 +119,25 @@ void ImageSnapSlidingView::createResultView(){
     resultView = new SingleImageView(this);
     layout->addWidget(resultView, 1, 0, 1, 2);
 
+    QObject::connect(button, SIGNAL(clicked(bool)), this, SLOT(slideInPrev()));
+}
+void ImageSnapSlidingView::createSettingsView(){
+    QWidget* view = new QWidget(this);
+    this->addWidget(view);
+
+    QGridLayout* layout = new QGridLayout(this);
+    view->setLayout(layout);
+
+    MaterialButton* button = new MaterialButton(QString("Back to Images"));
+    layout->addWidget(button, 0, 1, 1, 1, Qt::AlignRight);
+    button->setSizePolicy(QSizePolicy());
+    button->setIcon(viewHelper::awesome->icon(fa::arrowup));
+
+    MaterialButton* nextButton = new MaterialButton(QString("Match Images"));
+    layout->addWidget(nextButton, 2, 1, 1, 1, Qt::AlignRight);
+    nextButton->setSizePolicy(QSizePolicy());
+    nextButton->setIcon(viewHelper::awesome->icon(fa::arrowdown));
+
+    QObject::connect(nextButton, SIGNAL(clicked(bool)), this, SLOT(goToResultView()));
     QObject::connect(button, SIGNAL(clicked(bool)), this, SLOT(slideInPrev()));
 }

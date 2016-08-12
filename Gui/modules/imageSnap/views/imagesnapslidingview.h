@@ -26,6 +26,7 @@ signals:
 public slots:
     void goToImgeView();
     void goToResultView();
+    void goToSettingsView();
 private:
     WebPageConnector* connector;
     QWebEngineView* webView;
@@ -38,6 +39,7 @@ private:
     void createImagesView();
     void createResultView();
     void renderPage();
+    void createSettingsView();
 };
 
 #endif // ImageSnapSlidingView_H

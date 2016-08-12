@@ -822,7 +822,7 @@ ImageFeatures ImageHelper::getSURFFeatures(cv::Mat image){
       return result;
 }
 std::vector< cv::DMatch > ImageHelper::getDescriptorsMatches(cv::Mat descriptors1, cv::Mat descriptors2){
-    cv::BFMatcher matcher(cv::NORM_L2);
+    cv::BFMatcher matcher(cv::NORM_L2, true);
     std::vector< cv::DMatch > matches;
     matcher.match( descriptors1, descriptors2, matches);
     return matches;
