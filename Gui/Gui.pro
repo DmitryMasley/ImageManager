@@ -338,7 +338,7 @@ macx {
     LIBS += /usr/local/Cellar/opencv3/3.1.0_1/lib/libopencv_cudev.3.1.dylib
 
 }
-unix {
+unix:!macx {
     LIBS += -L/home/dmasley/Downloads/opencv-3.1.0/build/lib
     LIBS += /home/dmasley/Downloads/opencv-3.1.0/build/lib/cv2.so
     LIBS += /home/dmasley/Downloads/opencv-3.1.0/build/lib/libopencv_aruco.so

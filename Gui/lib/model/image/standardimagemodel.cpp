@@ -42,9 +42,6 @@ void StandardImageModel::AddImage(const cv::Mat image, const QString fileName)
         ChannelsStrings[1] = QString("Green");
         ChannelsStrings[2] = QString("Blue");
         ChannelsStrings[3] = QString("Alpha");
-        cv::imshow(ChannelsStrings[0].toStdString(), imageChannels.at(0));
-        cv::imshow(ChannelsStrings[1].toStdString(), imageChannels.at(1));
-        cv::imshow(ChannelsStrings[2].toStdString(), imageChannels.at(2));
         for(int i = 0; i<channelsCount; i++)
         {
             StandardImageItem* child = new StandardImageItem(imageChannels[i], name+QString(" ")+ChannelsStrings[i], fileName);
